@@ -118,8 +118,8 @@ public class Mountain extends Fractal {
         }
 
         public void createMiddlePoint(double dev){
-            double x = (p1.getX() + p2.getX())/2;
-            double y = (p1.getY() + p2.getY())/2 + RandomUtilities.randFunc(dev);
+            double x = (a.getX() + a.getX())/2;
+            double y = (c.getY() + c.getY())/2 + RandomUtilities.randFunc(dev);
             b = new Point(x, y);
         }
 
@@ -130,7 +130,7 @@ public class Mountain extends Fractal {
 
         @Override
         public String toString() {
-            return "Side{" + p1.getX() + ", " + p1.getY() +"; " + p2.getX() + ", " + p2.getY() + "; " + p3.getX() + ", " + p3.getY() + "}";
+            return "Side{" + a.getX() + ", " + a.getY() +"; " + b.getX() + ", " + b.getY() + "; " + c.getX() + ", " + c.getY() + "}";
         }
     }
 }
