@@ -39,7 +39,6 @@ public class Mountain extends Fractal {
      */
     private void drawFractal(TurtleGraphics g, double dev, int order, Point a, Point b, Point c){
 
-
         if (order == 0){
             drawTriangle(g,a,b,c);
         } else {
@@ -49,25 +48,48 @@ public class Mountain extends Fractal {
             Side ca;
 
             //beräkna mellanpunkter
-            index = sides.indexOf(new Side(a,c));
+            //lägg in i hjälp funktion
+            index = sides.indexOf(new Side(a,b));
             if(index >=0) {
-                ab = sides.get(index).b;
+                ab = sides.get(index);
+                sides.remove(index);
             } else{
-
+                ab = new Side(a,b);
+                ab.createMiddlePoint(dev);
             }
-            Point bc = getMiddlePoint(b, c);
-            Point ca = getMiddlePoint(c, a);
+            System.out.println(ab.toString());
 
-            //förskjut y-pos
+            index = sides.indexOf(new Side(b,c));
+            if(index >=0) {
+                bc = sides.get(index);
+                sides.remove(index);
+            } else{
+                bc = new Side(b,c);
+                bc.createMiddlePoint(dev);
+            }
+            System.out.println(bc.toString());
+
+            index = sides.indexOf(new Side(c,a));
+            if(index >=0) {
+                ca = sides.get(index);
+                sides.remove(index);
+            } else{
+                ca = new Side(c,a);
+                ca.createMiddlePoint(dev);
+            }
+            System.out.println(ca.toString());
+
+
+/*            //förskjut y-pos
             ab.move(ab.getX(), ab.getY() + RandomUtilities.randFunc(dev));
             bc.move(bc.getX(), bc.getY() + RandomUtilities.randFunc(dev));
-            ca.move(ca.getX(), ca.getY() + RandomUtilities.randFunc(dev));
+            ca.move(ca.getX(), ca.getY() + RandomUtilities.randFunc(dev));*/
 
             //Rita fyra deltrianglar
-            drawFractal(g, dev/2, order-1,ab ,b, bc);
-            drawFractal(g, dev/2, order-1, a, ab, ca);
-            drawFractal(g, dev/2, order-1,ab ,bc, ca);
-            drawFractal(g, dev/2, order-1,ca ,bc, c);
+            drawFractal(g, dev/2, order-1,ab.b ,b, bc.b);
+            drawFractal(g, dev/2, order-1, a, ab.b, ca.b);
+            drawFractal(g, dev/2, order-1,ab.b ,bc.b, ca.b);
+            drawFractal(g, dev/2, order-1,ca.b ,bc.b, c);
         }
     }
 
@@ -106,6 +128,9 @@ public class Mountain extends Fractal {
             return this.a.equals(that.a) && this.c.equals(that.c);
         }
 
-
+        @Override
+        public String toString() {
+            return "Side{" + p1.getX() + ", " + p1.getY() +"; " + p2.getX() + ", " + p2.getY() + "; " + p3.getX() + ", " + p3.getY() + "}";
+        }
     }
 }
