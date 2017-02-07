@@ -30,7 +30,6 @@ public class Mountain extends Fractal {
     @Override
     public void draw(TurtleGraphics g) {
         drawFractal(g, dev, order, p1, p2, p3);
-        //drawTriangle(g, p1, p2, p3);
     }
 
     /*
