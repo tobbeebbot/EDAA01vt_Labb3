@@ -48,7 +48,7 @@ public class FractalApplication extends Application {
 	public void start(Stage stage) {
 		fractals = new Fractal[2];
 		fractals[0] = new Koch(300);
-		fractals[1] = new Mountain(25, new Point(300, 50), new Point(450, 400), new Point(50, 400));
+		fractals[1] = new Mountain(25, new Point(300, 20), new Point(580, 580), new Point(20, 560));
 		actFractal = fractals[0];
 		BorderPane root = new BorderPane();
 		root.setBottom(addButtonBox());
