@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public class Mountain extends Fractal {
 
-    Point p1, p2, p3;
-    double dev;
-    ArrayList<Side> sides;
+    private Point p1, p2, p3;
+    private double dev;
+    private ArrayList<Side> sides;
 
     public Mountain(double dev, Point p1, Point p2, Point p3){
         this.p1 = p1;
@@ -29,6 +29,11 @@ public class Mountain extends Fractal {
 
     @Override
     public void draw(TurtleGraphics g) {
+        /** Fix för att slippa att berget hamnar i hörnet vid fullskärm
+        p1 = new Point(g.getWidth() / 2, g.getHeight() / 40);
+        p2 = new Point(g.getWidth() * 0.9, g.getHeight() * 0.9);
+        p3 = new Point(g.getWidth() * 0.05, g.getHeight() * 0.8);
+        */
         drawFractal(g, dev, order, p1, p2, p3);
     }
 

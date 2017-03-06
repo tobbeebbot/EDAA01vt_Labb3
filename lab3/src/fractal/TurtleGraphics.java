@@ -133,12 +133,17 @@ public class TurtleGraphics {
 		isPenDown = true;
 	}
 
+	/** Sets the width of the turtles pen. */
+	public void setPenWidth(double pw) {
+	    img.setLineWidth(pw);
+    }
+
 	/** 
 	 * Returns the width of the turtles drawing area. 
 	 * @return the width of the turtles drawing area.
 	 */
 	public double getWidth() {
-		return canvas.getWidth();
+	    return canvas.getWidth();
 	}
 
 	/** 

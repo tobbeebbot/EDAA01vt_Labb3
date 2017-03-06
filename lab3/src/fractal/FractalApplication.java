@@ -1,5 +1,7 @@
 package fractal;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -28,6 +30,7 @@ import javafx.util.Duration;
 import koch.Koch;
 import mountain.Mountain;
 import mountain.Point;
+import tree.Tree;
 
 public class FractalApplication extends Application {
 	private Fractal[] fractals;
@@ -37,8 +40,9 @@ public class FractalApplication extends Application {
 	private Task<Void> fractalDrawTask;
 	private Group canvasWrapper;
 
-	final double fractalWidth = 600;
-	final double fractalHeight = 600;
+	//Inte längre final för vill att man ska kunna variera.
+	private double fractalWidth = 600;
+	private double fractalHeight = 500;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -46,14 +50,27 @@ public class FractalApplication extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		fractals = new Fractal[2];
+		fractals = new Fractal[3];
 		fractals[0] = new Koch(300);
 		fractals[1] = new Mountain(25, new Point(300, 20), new Point(580, 580), new Point(20, 560));
+		fractals[2] = new Tree(new Point(300, 500), 150);
 		actFractal = fractals[0];
 		BorderPane root = new BorderPane();
 		root.setBottom(addButtonBox());
 		root.setTop(makeMenu());
 		root.setCenter(addDrawingArea());
+
+		//Lyssnare som reagerar då fönstrets storlekt förändras.
+        root.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                fractalWidth = root.getWidth();
+            }
+        });
+        root.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                fractalHeight = root.getHeight() - 200;
+            }
+        });
 
 		stage.setScene(new Scene(root, fractalWidth, fractalHeight + 200));
 		stage.setTitle("Fraktaler");
